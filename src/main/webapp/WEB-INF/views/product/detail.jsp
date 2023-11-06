@@ -18,19 +18,19 @@
                 </tr>
                 <tr>
                     <td>Giá bán:</td>
-                    <td><b>${p.price} VND</b></td>
+                    <td><b>${p.price} VNĐ</b></td>
                 </tr>
                 </tbody>
             </table>
             <br />
-            <a class="btn btn-secondary" href="index.jsp">Quay lại</a>
+            <a class="btn btn-secondary" href="/list-product">Quay lại</a>
             <a class="btn btn-primary" href="order_product.html">Mua hàng</a>
         </div>
     </div>
 </div>
 <style>
     .product-detail-image {
-        width: 300px;
+        width: 400px;
         height: 400px;
         float: left;
         margin-right: 20px;
