@@ -26,7 +26,8 @@ public class ProductController {
     }
     @GetMapping("/list-product")
     public String listProduct
-            (@RequestParam(defaultValue = "") String keyword,@RequestParam(defaultValue = "") String categoryId, @RequestParam(defaultValue = "0") Integer priceRange, Model model){
+            (@RequestParam(defaultValue = "") String keyword,@RequestParam(defaultValue = "") String categoryId,
+             @RequestParam(defaultValue = "0") Integer priceRange, Model model){
         int minPrice = 0, maxPrice = 100000000;
         if (priceRange==1){
             minPrice = 0 ; maxPrice=10000000;
