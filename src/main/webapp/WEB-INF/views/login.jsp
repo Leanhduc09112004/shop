@@ -31,7 +31,7 @@
                 <input name="password" type="password" class="form-control" />
             </div>
             <div class="mt-3">
-                <span id="error" style="color:red"></span>
+                <span id="error" style="color:#ff0000">${error}</span>
             </div>
             <div style="margin-top: 35px;">
                 <button type="submit" class="btn btn-primary" style="width: 100%;">Đăng nhập</button>

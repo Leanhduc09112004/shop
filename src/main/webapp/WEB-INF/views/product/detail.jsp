@@ -24,7 +24,8 @@
             </table>
             <br />
             <a class="btn btn-secondary" href="/list-product">Quay lại</a>
-            <a class="btn btn-primary" href="order_product.html">Mua hàng</a>
+            <a class="btn btn-primary" href="/purchase/${p.id}">Mua hàng</a>
+            <a class="btn btn-primary" href="/add-to-cart/${p.id}">Thêm vào giỏ hàng</a>
         </div>
     </div>
 </div>

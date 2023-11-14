@@ -20,11 +20,13 @@
 
     <ul class="navbar-nav ml-auto">
         <li class="nav-item no-arrow">
-            <a href="/cart" class="nav-link mt-1 text-light">
+            <c:if test="${carts!=null && carts.size()>0}">
+            <a href="/view-cart" class="nav-link mt-1 text-light">
                 <img class="img-cart" alt="" style="width:40px"
                      src="/static/images/cart.png" />
-                2
+                ${carts.size()}
             </a>
+            </c:if>
         </li>
         <li class="nav-item no-arrow">
             <c:if test="${user!=null}">
