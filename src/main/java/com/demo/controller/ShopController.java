@@ -1,7 +1,11 @@
 package com.demo.controller;
 
+import com.demo.model.Order;
+import com.demo.model.OrderDetail;
 import com.demo.model.Product;
 import com.demo.model.User;
+import com.demo.repo.OrderDetailRePo;
+import com.demo.repo.OrderRepo;
 import com.demo.repo.ProductRepo;
 import com.demo.repo.UserRepo;
 import jakarta.servlet.http.HttpSession;
@@ -17,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -27,6 +32,10 @@ public class ShopController {
     HttpSession session;
     @Autowired
     ProductRepo productRepo;
+    @Autowired
+    OrderRepo orderRepo;
+    @Autowired
+    OrderDetailRePo orderDetailRePo;
     @GetMapping("/login")
     public String login(){
         return"login";
@@ -39,7 +48,9 @@ public class ShopController {
             return "login";
         }
         session.setAttribute("user",user);
-        return"redirect:/list-product";
+        String redirectURL= (String) session.getAttribute("loginRedirectURL");
+        if(redirectURL==null) redirectURL ="/list-product";
+        return "redirect:"+ redirectURL;
     }
     @GetMapping("/logout")
     public String logout(){
@@ -124,4 +135,48 @@ public class ShopController {
         addCart(id,1);
         return "redirect:/view-cart";
     }
+    @GetMapping("/checkout")
+    public String checkout( Model model){
+        if (session.getAttribute("user")==null){
+            session.setAttribute("loginRedirectURL","/checkout");
+            return "redirect:/login";
+        }
+        int total = 0;
+        List<CartItem> carts = (List<CartItem>)session.getAttribute("carts");
+        if (carts!=null){
+            for (CartItem item :carts) total+=item.getTotal();
+        }
+        if (total==0){
+            return "redirect:/list-product";
+        }
+        model.addAttribute("total",total);
+        return "checkout";
+    }
+    @PostMapping("/checkout")
+    public String checkout(@RequestParam String address, Model model){
+       if (address.isEmpty()){
+           model.addAttribute("error", "Bạn cần nhập địa chỉ");
+           return "checkout";
+       }
+        User user = (User)session.getAttribute("user");
+        Order order = new Order();
+        order.setUsername(user.getUsername());
+        order.setCreatedate(new Date());
+        order.setAddress(address);
+        order.setStatus(Order.Status.New);
+        orderRepo.save(order);
+
+        List<CartItem> carts = (List<CartItem>)session.getAttribute("carts");
+        for (CartItem item : carts) {
+            OrderDetail orderDetail = new OrderDetail();
+            orderDetail.setProductid(item.getProductId());
+            orderDetail.setPrice(item.getProductPrice());
+            orderDetail.setQuantity(item.getQuantity());
+            orderDetail.setOrder(order);
+            orderDetailRePo.save(orderDetail);
+        }
+        session.removeAttribute("carts");
+       return "redirect:/list-product";
+    }
+
 }

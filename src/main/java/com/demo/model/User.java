@@ -12,4 +12,6 @@ public class User {
 @Id String username;
 String password;
 String fullname;
+Boolean isadmin;
+Boolean isstaff;
 }

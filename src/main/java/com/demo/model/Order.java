@@ -16,4 +16,12 @@ public class Order {
     String username;
     Date createdate;
     String address;
+    Date deliver;
+    String status;
+
+    public static interface Status{
+        public String New ="NEW";
+        public String Deliveried ="DELIVERED";
+        public String Cancelled ="CANCELLED";
+    }
 }

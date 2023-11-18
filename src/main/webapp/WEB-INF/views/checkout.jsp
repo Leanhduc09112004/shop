@@ -14,19 +14,20 @@
         <tbody>
         <tr>
             <td>${item.productName}</td>
-            <td>${item.productPrice}</td>
-            <td>${carts.size()}</td>
-            <td>${item.total}</td>
+            <td>${item.productPrice} VNĐ</td>
+            <td>${item.quantity}</td>
+            <td>${item.total} VNĐ</td>
         </tr>
         </tbody>
-        </c:forEach>
     </table>
     <div class="my-2">Tổng số tiền:${item.total} VNĐ</div>
-    <form method="POST" action="index.html">
+    </c:forEach>
+    <form method="POST">
         <div>
             <label class="mb-1">Địa chỉ nhận hàng:</label>
             <textarea class="form-control" rows="2" name="address"></textarea>
         </div>
+        <div class="error" style="color: red">${error}</div>
         <button class="mt-2 btn btn-primary">Đặt mua</button>
     </form>
 </div>

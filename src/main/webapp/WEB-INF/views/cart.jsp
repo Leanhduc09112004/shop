@@ -31,7 +31,7 @@
                            name="quantity"
                            value="${item.quantity}"
                            onchange="this.form.submit()"
-                           style="width:50px;">
+                           style="width:75px;">
                 </td>
                 <td>${item.total} VNĐ</td>
                 <td>
@@ -44,5 +44,5 @@
     </table>
     <div class="my-2">Tổng số tiền: ${total} VNĐ</div>
     <a class="btn btn-secondary" href="/list-product">Tiếp tục mua hàng</a>
-    <a class="btn btn-primary" href="checkout.html">Thanh toán</a>
+    <a class="btn btn-primary" href="/checkout">Thanh toán</a>
 </div>
