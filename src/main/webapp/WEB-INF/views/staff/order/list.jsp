@@ -1,37 +1,30 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: ICEMAN
-  Date: 11/18/2023
-  Time: 12:26 AM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="../_navbar.jsp"%>
-
 <div class="container mt-3">
     <h4>Danh sách đơn hàng</h4>
     <ul class="nav nav-tabs">
         <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Đang chờ giao</a>
+            <a class="nav-link ${param.status==null?'active':''}" aria-current="page" href="/list-order">Đang chờ giao</a>
         </li>
 
         <li class="nav-item">
-            <a class="nav-link" href="#">Đã giao</a>
+            <a class="nav-link ${'DELIVERED'.equals(param.status)?'active':''}" href="/list-order?status=DELIVERED">Đã giao</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">Đã hủy</a>
+            <a class="nav-link ${'CANCELLED'.equals(param.status)?'active':''}" href="/list-order?status=CANCELLED">Đã hủy</a>
         </li>
     </ul>
     <form class="row mt-3">
+        <input type="hidden" name="status" value="${param.status}">
         <div class="col-4">
-            <input class="form-control" placeholder="Khách hàng" />
+            <input name="keyword" ${param.keyword} class="form-control" placeholder="Khách hàng" />
         </div>
         <div class="col-3">
-            <input type="date" class="form-control" placeholder="Từ ngày" />
+            <input name="fromDate" ${param.fromDate} type="date" class="form-control" placeholder="Từ ngày" />
         </div>
 
         <div class="col-3">
-            <input type="date" class="form-control" placeholder="Đến ngày" />
+            <input name="toDate" ${param.toDate} type="date" class="form-control" placeholder="Đến ngày" />
         </div>
         <div class="col-2">
             <button class="btn btn-primary">Tìm kiếm</button>
@@ -46,24 +39,18 @@
             <th style="width:15%"></th>
         </tr>
         </thead>
+        <c:forEach items="${list}" var="order">
         <tbody>
         <tr>
-            <td>Nguyễn Văn A</td>
-            <td>Tầng 4, Tòa nhà FPT, Kiều Mai</td>
-            <td>10:30:00 17/11/2023</td>
+            <td>${order.user.fullname}</td>
+            <td>${order.address}</td>
+            <td>${order.createdate}</td>
             <td class="text-center">
-                <a class="btn btn-sm btn-secondary" href="/view-order/1">Xem</a>
-            </td>
-        </tr>
-        <tr>
-            <td>Nguyễn Văn B</td>
-            <td>123, Phố XYZ , Hà Nội</td>
-            <td>11:30:00 16/11/2023</td>
-            <td class="text-center">
-                <a class="btn btn-sm btn-secondary" href="/view-order/2">Xem</a>
+                <a class="btn btn-sm btn-secondary" href="/view-order/${order.id}">Xem</a>
             </td>
         </tr>
         </tbody>
+        </c:forEach>
     </table>
     <nav aria-label="Page navigation example">
         <ul class="pagination">

@@ -19,9 +19,9 @@
             <td>${item.total} VNĐ</td>
         </tr>
         </tbody>
+        </c:forEach>
     </table>
-    <div class="my-2">Tổng số tiền:${item.total} VNĐ</div>
-    </c:forEach>
+    <div class="my-2">Tổng số tiền: ${total} VNĐ</div>
     <form method="POST">
         <div>
             <label class="mb-1">Địa chỉ nhận hàng:</label>

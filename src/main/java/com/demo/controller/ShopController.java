@@ -160,7 +160,7 @@ public class ShopController {
        }
         User user = (User)session.getAttribute("user");
         Order order = new Order();
-        order.setUsername(user.getUsername());
+        order.setUser(user);
         order.setCreatedate(new Date());
         order.setAddress(address);
         order.setStatus(Order.Status.New);
@@ -169,7 +169,9 @@ public class ShopController {
         List<CartItem> carts = (List<CartItem>)session.getAttribute("carts");
         for (CartItem item : carts) {
             OrderDetail orderDetail = new OrderDetail();
-            orderDetail.setProductid(item.getProductId());
+            Product product = new Product();
+            product.setId(item.productId);
+            orderDetail.setProduct(product);
             orderDetail.setPrice(item.getProductPrice());
             orderDetail.setQuantity(item.getQuantity());
             orderDetail.setOrder(order);

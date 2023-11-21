@@ -15,7 +15,8 @@ public class OrderDetail {
     //Long orderid;
     @ManyToOne @JoinColumn(name="orderid")
     Order order;
-    Integer productid;
+    @ManyToOne @JoinColumn(name="productid")
+    Product product;
     Integer price;
     Integer quantity;
 }
